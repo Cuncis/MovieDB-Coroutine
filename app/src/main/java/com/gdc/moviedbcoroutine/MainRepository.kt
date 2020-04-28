@@ -3,7 +3,9 @@ package com.gdc.moviedbcoroutine
 import androidx.lifecycle.MutableLiveData
 import com.gdc.moviedbcoroutine.data.model.NowPlaying
 import com.gdc.moviedbcoroutine.data.remote.ApiClient
+import com.gdc.moviedbcoroutine.util.Utility
 import kotlinx.coroutines.*
+import java.io.IOException
 
 class MainRepository {
 
@@ -22,12 +24,16 @@ class MainRepository {
         job = CoroutineScope(Dispatchers.IO + exeptionHandler).launch {
             val response = ApiClient.theMovieDbApi.getNowPlayingMovie("in")
             withContext(Dispatchers.Main) {
-                if (response.isSuccessful) {
-                    loading.value = false
-                    nowPlayingList.value = response.body()?.results
-                    loadError.value = null
-                } else {
-                    onError("Error: ${response.message()}")
+                try {
+                    if (response.isSuccessful) {
+                        loading.value = false
+                        nowPlayingList.postValue(response.body()?.results)
+                        loadError.postValue(null)
+                    } else {
+                        onError("Error: ${response.message()}")
+                    }
+                } catch (e: CancellationException) {
+                    Utility.showLog("Error: ${e.message}")
                 }
             }
         }
@@ -49,7 +55,7 @@ class MainRepository {
 
     private fun onError(message: String) {
         loading.value = false
-        loadError.value = message
+        loadError.postValue(message)
     }
 
 }
