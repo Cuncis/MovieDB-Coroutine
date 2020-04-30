@@ -15,7 +15,7 @@ android {
         versionName "1.0"
 
         buildConfigField('String', 'API_KEY', '"d72e964a8778ea63c83ee06adaf4c1f7"')
-        buildConfigField('String', 'BASE_URL', '"https://api.themoviedb.org"')
+        buildConfigField('String', 'IMG_URL', '"http://image.tmdb.org/t/p/"')
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -42,9 +42,14 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.cardview:cardview:1.0.0'
 
+    // Glide
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+
     // retrofit
-    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.6.2'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
 
     // interceptor
     implementation 'com.squareup.okhttp3:okhttp:4.2.1'
