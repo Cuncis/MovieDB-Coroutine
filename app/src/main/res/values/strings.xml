@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MovieDB Coroutine</string>
+    <string name="app_name">Movie DB</string>
     <string name="label_detail">Detail</string>
     <string name="label_share">Share</string>
 

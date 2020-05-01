@@ -1,4 +1,4 @@
-package com.gdc.moviedbcoroutine
+package com.gdc.moviedbcoroutine.ui.now_playing
 
 import androidx.lifecycle.MutableLiveData
 import com.gdc.moviedbcoroutine.data.model.NowPlaying
@@ -7,10 +7,10 @@ import com.gdc.moviedbcoroutine.util.Utility
 import kotlinx.coroutines.*
 import java.io.IOException
 
-class MainRepository {
+class NowPlayingRepository {
 
     var job: Job? = null
-    val exeptionHandler = CoroutineExceptionHandler {coroutineContext, throwable ->
+    private val exeptionHandler = CoroutineExceptionHandler { _, throwable ->
         onError("Exception: ${throwable.localizedMessage}")
     }
 

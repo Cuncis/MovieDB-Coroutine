@@ -1,15 +1,15 @@
-package com.gdc.moviedbcoroutine
+package com.gdc.moviedbcoroutine.ui.now_playing
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
 import com.gdc.moviedbcoroutine.data.model.NowPlaying
-import kotlinx.coroutines.*
+import com.gdc.moviedbcoroutine.ui.now_playing.NowPlayingRepository
 
-class MainViewModel: ViewModel() {
+class NowPlayingViewModel: ViewModel() {
 
-    private val repository = MainRepository()
+    private val repository =
+        NowPlayingRepository()
 
     fun getNowPlayingMovieList(): LiveData<List<NowPlaying>> {
         return repository.fetchNowPlaying()
