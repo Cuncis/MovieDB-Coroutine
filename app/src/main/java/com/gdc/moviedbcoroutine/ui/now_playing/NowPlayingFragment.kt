@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.gdc.moviedbcoroutine.R
 import com.gdc.moviedbcoroutine.data.model.NowPlaying
-import com.gdc.moviedbcoroutine.ui.now_playing.detail.DetailActivity
+import com.gdc.moviedbcoroutine.ui.now_playing.detail.NowPlayingDetailActivity
 import com.gdc.moviedbcoroutine.util.Utility
 import kotlinx.android.synthetic.main.fragment_now_paying.view.*
 
@@ -72,7 +72,7 @@ class NowPlayingFragment : Fragment(), NowPlayingAdapter.DetailClickListener {
     }
 
     override fun onDetailClick(position: Int) {
-        val intent = Intent(activity, DetailActivity::class.java)
+        val intent = Intent(activity, NowPlayingDetailActivity::class.java)
         intent.putExtra("KEY_NAME", movieList[position].originalTitle)
         intent.putExtra("KEY_MOVIE_ID", movieList[position].id)
         startActivity(intent)

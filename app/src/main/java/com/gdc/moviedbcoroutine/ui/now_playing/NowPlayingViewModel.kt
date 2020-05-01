@@ -24,7 +24,6 @@ class NowPlayingViewModel: ViewModel() {
     }
 
     override fun onCleared() {
-        super.onCleared()
         repository.clear()
     }
 }
