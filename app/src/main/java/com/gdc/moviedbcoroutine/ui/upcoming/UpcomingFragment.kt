@@ -1,4 +1,4 @@
-package com.gdc.moviedbcoroutine.ui.now_playing
+package com.gdc.moviedbcoroutine.ui.upcoming
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,62 +6,66 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.gdc.moviedbcoroutine.R
-import com.gdc.moviedbcoroutine.data.model.NowPlaying
+import com.gdc.moviedbcoroutine.data.model.Upcoming
 import com.gdc.moviedbcoroutine.ui.now_playing.detail.NowPlayingDetailActivity
 import com.gdc.moviedbcoroutine.util.Utility
-import kotlinx.android.synthetic.main.fragment_now_paying.view.*
+import kotlinx.android.synthetic.main.fragment_upcoming.view.*
 
 /**
  * A simple [Fragment] subclass.
  */
-class NowPlayingFragment : Fragment(), NowPlayingAdapter.DetailClickListener {
+class UpcomingFragment : Fragment(), UpcomingAdapter.DetailClickListener {
 
-    lateinit var nowPlayingViewModel: NowPlayingViewModel
-    lateinit var nowPlayingAdapter: NowPlayingAdapter
-    private var movieList = ArrayList<NowPlaying>()
+    private lateinit var upcomingViewModel: UpcomingViewModel
+    private lateinit var upcomingAdapter: UpcomingAdapter
+    private var movieList = ArrayList<Upcoming>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_now_paying, container, false)
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_upcoming, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        nowPlayingViewModel = ViewModelProvider(this).get(NowPlayingViewModel::class.java)
+        upcomingViewModel = ViewModelProvider(activity!!).get(UpcomingViewModel::class.java)
 
         initRecyclerView(view)
 
         observeViewModel(view)
+
     }
 
     private fun initRecyclerView(view: View) {
-        nowPlayingAdapter = NowPlayingAdapter(arrayListOf())
-        view.rv_nowPlaying.layoutManager = LinearLayoutManager(activity)
-        view.rv_nowPlaying.setHasFixedSize(true)
-        nowPlayingAdapter.setDetailClickListener(this)
-        view.rv_nowPlaying.adapter = nowPlayingAdapter
+        upcomingAdapter = UpcomingAdapter(arrayListOf())
+        upcomingAdapter.setDetailClickListener(this)
+        view.rv_upcoming.apply {
+            layoutManager = LinearLayoutManager(activity!!)
+            setHasFixedSize(true)
+            adapter = upcomingAdapter
+        }
     }
 
     private fun observeViewModel(view: View) {
-        nowPlayingViewModel.getNowPlayingMovieList().observe(activity!!, Observer { nowPlayingList ->
-            movieList.addAll(nowPlayingList)
-            Utility.showLog("Data: $nowPlayingList")
-            nowPlayingAdapter.setNowPlayingList(nowPlayingList)
+        upcomingViewModel.getUpcomingMovies("in").observe(activity!!, Observer {
+            movieList.addAll(it)
+            upcomingAdapter.setUpcomingList(movieList)
         })
 
-        nowPlayingViewModel.getLoadError().observe(activity!!, Observer {
-            view.tv_errorMessage.text = it
+        upcomingViewModel.getErrorMessage().observe(activity!!, Observer {
+            Toast.makeText(activity, it, Toast.LENGTH_SHORT).show()
         })
 
-        nowPlayingViewModel.onLoading().observe(activity!!, Observer {
+        upcomingViewModel.onLoading().observe(activity!!, Observer {
             if (it) {
                 view.progressBar.visibility = View.VISIBLE
             } else {

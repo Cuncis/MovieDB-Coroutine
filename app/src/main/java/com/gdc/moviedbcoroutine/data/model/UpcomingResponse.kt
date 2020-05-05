@@ -2,10 +2,10 @@ package com.gdc.moviedbcoroutine.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class NowPlayingResponse(
+data class UpcomingResponse(
 
 	@field:SerializedName("dates")
-	val dates: NowPlayingDates? = null,
+	val dates: UpcomingDates? = null,
 
 	@field:SerializedName("page")
 	val page: Int? = null,
@@ -14,13 +14,13 @@ data class NowPlayingResponse(
 	val totalPages: Int? = null,
 
 	@field:SerializedName("results")
-	val results: List<NowPlaying>? = null,
+	val results: List<Upcoming>? = null,
 
 	@field:SerializedName("total_results")
 	val totalResults: Int? = null
 )
 
-data class NowPlaying(
+data class Upcoming(
 
 	@field:SerializedName("overview")
 	val overview: String? = null,
@@ -65,7 +65,7 @@ data class NowPlaying(
 	val voteCount: Int? = null
 )
 
-data class NowPlayingDates(
+data class UpcomingDates(
 
 	@field:SerializedName("maximum")
 	val maximum: String? = null,

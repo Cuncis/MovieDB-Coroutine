@@ -48,14 +48,28 @@ class NowPlayingDetailActivity : AppCompatActivity() {
         img_poster.loadImage(BuildConfig.IMG_URL + "w500" + detail.posterPath)
         tv_release_date.text = detail.releaseDate
         tv_vote.text = detail.voteAverage.toString()
-        tv_genres.text = detail.genres?.get(0)?.name
+        if (!detail.genres.isNullOrEmpty()) {
+            tv_genres.text = detail.genres[0].name
+        } else {
+            tv_genres.text = " - "
+        }
         tv_overview.text = detail.overview
-        img_poster_belongs.loadImage(BuildConfig.IMG_URL + "w500" + detail.productionCompanies!![0].logoPath)
+        if (!detail.productionCompanies.isNullOrEmpty()) {
+            img_poster_belongs.loadImage(BuildConfig.IMG_URL + "w500" + detail.productionCompanies[0].logoPath)
+        }
         tv_title_belongs.text = detail.belongsToCollection
         tv_budget.text = detail.budget.toString()
         tv_revenue.text = detail.revenue.toString()
-        tv_companies.text = detail.productionCompanies[0].name
-        tv_countries.text = detail.productionCountries!![0].name
+        if (!detail.productionCompanies.isNullOrEmpty()) {
+            tv_companies.text = detail.productionCompanies[0].name
+        } else {
+            tv_companies.text = " - "
+        }
+        if (!detail.productionCountries.isNullOrEmpty()) {
+            tv_countries.text = detail.productionCountries[0].name
+        } else {
+            tv_countries.text = " - "
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

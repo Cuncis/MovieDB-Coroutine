@@ -2,6 +2,7 @@ package com.gdc.moviedbcoroutine.data.remote
 
 import com.gdc.moviedbcoroutine.data.model.NowPlayingDetailResponse
 import com.gdc.moviedbcoroutine.data.model.NowPlayingResponse
+import com.gdc.moviedbcoroutine.data.model.UpcomingResponse
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.GET
@@ -18,4 +19,8 @@ interface TheMovieDbApi {
     suspend fun getNowPlayingDetail(@Path("movie_id") movieId: String,
                                     @Query("language") language: String):
             Response<NowPlayingDetailResponse>
+
+    @GET("3/movie/upcoming")
+    suspend fun getUpcomingMovie(@Query("language") language: String):
+            Response<UpcomingResponse>
 }

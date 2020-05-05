@@ -1,4 +1,4 @@
-package com.gdc.moviedbcoroutine.ui.now_playing
+package com.gdc.moviedbcoroutine.ui.upcoming
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,11 +9,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.gdc.moviedbcoroutine.BuildConfig
 import com.gdc.moviedbcoroutine.R
-import com.gdc.moviedbcoroutine.data.model.NowPlaying
+import com.gdc.moviedbcoroutine.data.model.Upcoming
 import com.gdc.moviedbcoroutine.util.Utility.Companion.loadImage
 import kotlinx.android.synthetic.main.item_movie.view.*
 
-class NowPlayingAdapter(var list: ArrayList<NowPlaying>): RecyclerView.Adapter<NowPlayingAdapter.MainViewHolder>() {
+class UpcomingAdapter(var list: ArrayList<Upcoming>): RecyclerView.Adapter<UpcomingAdapter.MainViewHolder>() {
 
     private lateinit var detailClickListener: DetailClickListener
 
@@ -27,7 +27,7 @@ class NowPlayingAdapter(var list: ArrayList<NowPlaying>): RecyclerView.Adapter<N
         holder.bind(list[position])
     }
 
-    fun setNowPlayingList(list: List<NowPlaying>) {
+    fun setUpcomingList(list: List<Upcoming>) {
         this.list.addAll(list)
         notifyDataSetChanged()
     }
@@ -43,7 +43,7 @@ class NowPlayingAdapter(var list: ArrayList<NowPlaying>): RecyclerView.Adapter<N
         private val tvReleaseDate: TextView = view.tv_release_date
         private val btnDetail: Button = view.btn_detail
 
-        fun bind(nowPlaying: NowPlaying) {
+        fun bind(nowPlaying: Upcoming) {
             ivPoster.loadImage(BuildConfig.IMG_URL + "w154" +  nowPlaying.posterPath)
             tvTitle.text = nowPlaying.title
             tvOverview.text = nowPlaying.overview
