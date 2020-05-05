@@ -70,8 +70,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_marginStart="@dimen/def_clear_space"
-                    android:src="@drawable/ic_favorite_border_black_24dp"
-                    android:tint="@android:color/holo_red_light" />
+                    android:src="@drawable/ic_favorite_border_black_24dp" />
 
             </LinearLayout>
 

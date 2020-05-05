@@ -1,4 +1,4 @@
-package com.gdc.moviedbcoroutine.ui
+package com.gdc.moviedbcoroutine.ui.favorite
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

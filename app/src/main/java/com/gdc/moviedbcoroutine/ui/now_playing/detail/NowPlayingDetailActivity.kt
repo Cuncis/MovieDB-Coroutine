@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.activity_now_playing_detail.*
 class NowPlayingDetailActivity : AppCompatActivity() {
 
     private lateinit var nowPlayingDetailViewModel: NowPlayingDetailViewModel
+    private var isFavorite = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +35,22 @@ class NowPlayingDetailActivity : AppCompatActivity() {
         tv_title.text = intent.getStringExtra("KEY_NAME")
 
         observeViewModel()
+
+        initListener()
+    }
+
+    private fun initListener() {
+        iv_fav.setOnClickListener {
+            isFavorite = if (!isFavorite) {
+                iv_fav.setBackgroundResource(R.drawable.ic_favorite_black_24dp)
+                Utility.showMessage(this, "Add to Favorite")
+                true
+            } else {
+                iv_fav.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp)
+                Utility.showMessage(this, "Remove from Favorite")
+                false
+            }
+        }
     }
 
     private fun observeViewModel() {

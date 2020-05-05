@@ -1,8 +1,9 @@
-package com.gdc.moviedbcoroutine
+package com.gdc.moviedbcoroutine.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.gdc.moviedbcoroutine.ui.FavoriteFragment
+import com.gdc.moviedbcoroutine.R
+import com.gdc.moviedbcoroutine.ui.favorite.FavoriteFragment
 import com.gdc.moviedbcoroutine.ui.now_playing.NowPlayingFragment
 import com.gdc.moviedbcoroutine.ui.upcoming.UpcomingFragment
 import com.gdc.moviedbcoroutine.util.TabAdapter
