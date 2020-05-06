@@ -8,7 +8,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.gdc.moviedbcoroutine.BuildConfig
 import com.gdc.moviedbcoroutine.R
+import com.gdc.moviedbcoroutine.data.model.FavoriteModel
+import com.gdc.moviedbcoroutine.data.model.NowPlaying
 import com.gdc.moviedbcoroutine.data.model.NowPlayingDetailResponse
+import com.gdc.moviedbcoroutine.ui.favorite.FavoriteViewModel
 import com.gdc.moviedbcoroutine.util.Utility
 import com.gdc.moviedbcoroutine.util.Utility.Companion.loadImage
 import com.google.android.material.appbar.CollapsingToolbarLayout
@@ -17,7 +20,12 @@ import kotlinx.android.synthetic.main.activity_now_playing_detail.*
 class NowPlayingDetailActivity : AppCompatActivity() {
 
     private lateinit var nowPlayingDetailViewModel: NowPlayingDetailViewModel
+    private lateinit var favoriteViewModel: FavoriteViewModel
     private var isFavorite = false
+
+    private var detail = NowPlayingDetailResponse()
+    private var favModel = FavoriteModel()
+    private var type = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,12 +39,21 @@ class NowPlayingDetailActivity : AppCompatActivity() {
         collapsingToolbar.setExpandedTitleColor(ContextCompat.getColor(this, android.R.color.white))
 
         nowPlayingDetailViewModel = ViewModelProvider(this).get(NowPlayingDetailViewModel::class.java)
+        favoriteViewModel = ViewModelProvider(this).get(FavoriteViewModel::class.java)
 
         tv_title.text = intent.getStringExtra("KEY_NAME")
+        if (intent.hasExtra("KEY_TYPE")) {
+            type = intent.getStringExtra("KEY_TYPE")!!
+        }
+
+        checkisFavorite()
 
         observeViewModel()
 
         initListener()
+    }
+
+    private fun checkisFavorite() {
     }
 
     private fun initListener() {
@@ -44,10 +61,12 @@ class NowPlayingDetailActivity : AppCompatActivity() {
             isFavorite = if (!isFavorite) {
                 iv_fav.setBackgroundResource(R.drawable.ic_favorite_black_24dp)
                 Utility.showMessage(this, "Add to Favorite")
+                favoriteViewModel.addFavorite(FavoriteModel(detail.title.toString(), type, 1))
                 true
             } else {
                 iv_fav.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp)
                 Utility.showMessage(this, "Remove from Favorite")
+                favoriteViewModel.removeFavorite(FavoriteModel(detail.title.toString(), type, 0))
                 false
             }
         }
@@ -56,8 +75,30 @@ class NowPlayingDetailActivity : AppCompatActivity() {
     private fun observeViewModel() {
         nowPlayingDetailViewModel.getNowPlayingDetail(intent.getIntExtra("KEY_MOVIE_ID", 0), "in")
             .observe(this, Observer {
+                detail = it
                 setNowPlayingDetail(it)
             })
+
+        val bool: Boolean? = null
+        favoriteViewModel.getAllFavorites().observe(this, Observer {
+            Utility.showLog("Data Local: $it")
+        })
+
+        if (intent.hasExtra("KEY_NAME")) {
+            favoriteViewModel.getFlagByTitle(intent.getStringExtra("KEY_NAME")!!).observe(this, Observer {
+                if (it != null) {
+                    if (it.flag == 0) {
+                        iv_fav.setBackgroundResource(R.drawable.ic_favorite_border_black_24dp)
+                        Utility.showLog("Data Local: 0")
+                        isFavorite = false
+                    } else if (it.flag == 1) {
+                        iv_fav.setBackgroundResource(R.drawable.ic_favorite_black_24dp)
+                        Utility.showLog("Data Local: 1")
+                        isFavorite = true
+                    }
+                }
+            })
+        }
     }
 
     private fun setNowPlayingDetail(detail: NowPlayingDetailResponse) {

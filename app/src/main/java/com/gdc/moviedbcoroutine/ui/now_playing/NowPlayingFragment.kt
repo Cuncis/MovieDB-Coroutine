@@ -74,6 +74,7 @@ class NowPlayingFragment : Fragment(), NowPlayingAdapter.DetailClickListener {
         val intent = Intent(activity, NowPlayingDetailActivity::class.java)
         intent.putExtra("KEY_NAME", movieList[position].originalTitle)
         intent.putExtra("KEY_MOVIE_ID", movieList[position].id)
+        intent.putExtra("KEY_TYPE", "01")
         startActivity(intent)
     }
 
