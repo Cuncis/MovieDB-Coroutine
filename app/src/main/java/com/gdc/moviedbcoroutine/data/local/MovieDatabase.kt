@@ -8,7 +8,7 @@ import com.gdc.moviedbcoroutine.data.model.FavoriteModel
 import com.gdc.moviedbcoroutine.ui.favorite.FavoriteDao
 
 
-@Database(entities = [FavoriteModel::class], version = 1, exportSchema = false)
+@Database(entities = [FavoriteModel::class], version = 2, exportSchema = false)
 abstract class MovieDatabase : RoomDatabase() {
 
     abstract fun favoriteDao(): FavoriteDao

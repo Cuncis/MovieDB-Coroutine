@@ -79,7 +79,6 @@ class NowPlayingDetailActivity : AppCompatActivity() {
                 setNowPlayingDetail(it)
             })
 
-        val bool: Boolean? = null
         favoriteViewModel.getAllFavorites().observe(this, Observer {
             Utility.showLog("Data Local: $it")
         })

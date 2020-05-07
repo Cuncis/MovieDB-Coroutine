@@ -11,15 +11,16 @@
         android:layout_weight="9"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:id="@+id/tv_title"
         tools:text="Title"
         android:textSize="18sp"
-        android:textColor="@android:color/black"
-        />
+        android:textColor="@android:color/black" />
 
     <ImageButton
         android:layout_weight="1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:id="@+id/btn_remove"
         android:src="@drawable/ic_close"
         android:background="@android:color/transparent"/>
 

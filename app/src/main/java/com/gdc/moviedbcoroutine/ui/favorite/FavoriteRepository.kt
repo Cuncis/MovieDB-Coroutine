@@ -3,6 +3,7 @@ package com.gdc.moviedbcoroutine.ui.favorite
 import androidx.lifecycle.LiveData
 import com.gdc.moviedbcoroutine.data.model.FavoriteModel
 
+
 class FavoriteRepository(private val favoriteDao: FavoriteDao) {
 
     suspend fun addFavorite(favorite: FavoriteModel) {
